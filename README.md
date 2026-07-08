@@ -1,11 +1,17 @@
 ---
-name: kimi-mnemosyne-skill
+name: kimi-palimpsest-skill
 description: Persistent AI agent memory using Obsidian markdown vaults with semantic search, graph traversal, wiki-links, security gates, and MCP server compatibility. Triggered by remember this, save to memory, recall memory, search memory, remind me, consolidate memory, memory audit, graph memory, semantic search, prospective memory, salience scoring, admission control.
 ---
 
-# Kimi Mnemosyne Skill
+# Kimi Palimpsest Skill
 
 Production-grade unified memory for AI agents. Remember conversations, search by meaning, schedule future reminders, and protect against poisoned data. All memories are plain `.md` files you can open in Obsidian or any text editor.
+
+## ⚠️ Rebrand Notice
+
+This skill was formerly known as **kimi-mnemosyne-skill**. We rebranded to **Palimpsest** in July 2026.
+
+**Why Palimpsest?** A palimpsest is a manuscript where layers of writing accumulate over time — yet traces of earlier layers remain visible. It's the perfect metaphor for how our memory system works: persistent, layered, and always revealing deeper connections.
 
 ## What It Does
 
@@ -24,7 +30,7 @@ Production-grade unified memory for AI agents. Remember conversations, search by
 ## Quick Start
 
 ```python
-from mnemosyne import UnifiedMemorySystem
+from palimpsest import UnifiedMemorySystem
 
 memory = UnifiedMemorySystem()  # Auto-creates DB schema
 
@@ -74,7 +80,7 @@ memory.consolidate()
 pip install -e ".[dev]"
 
 # For PostgreSQL (optional, scales better):
-# docker run -d --name mnemosyne-pg -p 15432:5432 ankane/pgvector:latest
+# docker run -d --name palimpsest-pg -p 15432:5432 ankane/pgvector:latest
 ```
 
 ## Environment Variables
@@ -82,8 +88,8 @@ pip install -e ".[dev]"
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `MEMORY_DB_DSN` | (none) | PostgreSQL connection string |
-| `MEMORY_SQLITE_PATH` | `~/.mnemosyne/mnemosyne.db` | SQLite database path |
-| `MEMORY_VAULT_PATH` | `~/Documents/Kimi/Workspaces/Mnemosyne/obsidian-vault` | Markdown vault directory |
+| `MEMORY_SQLITE_PATH` | `~/.palimpsest/palimpsest.db` | SQLite database path |
+| `MEMORY_VAULT_PATH` | `~/Documents/Kimi/Workspaces/Palimpsest/vault` | Markdown vault directory |
 | `EMBEDDING_MODEL` | `all-MiniLM-L6-v2` | Sentence-transformers model |
 | `OLLAMA_URL` | `http://localhost:11434` | Ollama server for embeddings |
 
@@ -97,9 +103,9 @@ pip install -e ".[dev]"
 
 | File | Purpose |
 |------|---------|
-| `mnemosyne/` | Python package (import this) |
-| `~/Mnemosyne/obsidian-vault/` | Your notes (source of truth) |
-| `~/.mnemosyne/mnemosyne.db` | SQLite database (auto-created) |
+| `palimpsest/` | Python package (import this) |
+| `~/Palimpsest/vault/` | Your notes (source of truth) |
+| `~/.palimpsest/palimpsest.db` | SQLite database (auto-created) |
 
 ## Best Practices
 
@@ -118,7 +124,7 @@ This is the **Kimi skill** — the minimal installable version. For the full pla
 - Next.js frontend
 - x402 USDC micropayments
 
-See: **https://github.com/M4F-S/mnemosyne** (platform repo)
+See: **https://github.com/M4F-S/palimpsest** (platform repo)
 
 ## License
 
