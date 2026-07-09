@@ -1,17 +1,11 @@
----
-name: kimi-palimpsest-skill
+name: kimi-mnemosyne-skill
 description: Persistent AI agent memory using Obsidian markdown vaults with semantic search, graph traversal, wiki-links, security gates, and MCP server compatibility. Triggered by remember this, save to memory, recall memory, search memory, remind me, consolidate memory, memory audit, graph memory, semantic search, prospective memory, salience scoring, admission control.
+
 ---
 
-# Kimi Palimpsest Skill
+# Mnemosyne Skill for Kimi
 
 Production-grade unified memory for AI agents. Remember conversations, search by meaning, schedule future reminders, and protect against poisoned data. All memories are plain `.md` files you can open in Obsidian or any text editor.
-
-## ⚠️ Rebrand Notice
-
-This skill was formerly known as **kimi-mnemosyne-skill**. We rebranded to **Palimpsest** in July 2026.
-
-**Why Palimpsest?** A palimpsest is a manuscript where layers of writing accumulate over time — yet traces of earlier layers remain visible. It's the perfect metaphor for how our memory system works: persistent, layered, and always revealing deeper connections.
 
 ## What It Does
 
@@ -30,7 +24,7 @@ This skill was formerly known as **kimi-mnemosyne-skill**. We rebranded to **Pal
 ## Quick Start
 
 ```python
-from palimpsest import UnifiedMemorySystem
+from mnemosyne import UnifiedMemorySystem
 
 memory = UnifiedMemorySystem()  # Auto-creates DB schema
 
@@ -80,7 +74,7 @@ memory.consolidate()
 pip install -e ".[dev]"
 
 # For PostgreSQL (optional, scales better):
-# docker run -d --name palimpsest-pg -p 15432:5432 ankane/pgvector:latest
+# docker run -d --name mnemosyne-pg -p 15432:5432 ankane/pgvector:latest
 ```
 
 ## Environment Variables
@@ -88,8 +82,8 @@ pip install -e ".[dev]"
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `MEMORY_DB_DSN` | (none) | PostgreSQL connection string |
-| `MEMORY_SQLITE_PATH` | `~/.palimpsest/palimpsest.db` | SQLite database path |
-| `MEMORY_VAULT_PATH` | `~/Documents/Kimi/Workspaces/Palimpsest/vault` | Markdown vault directory |
+| `MEMORY_SQLITE_PATH` | `~/.mnemosyne/mnemosyne.db` | SQLite database path |
+| `MEMORY_VAULT_PATH` | `~/Documents/Kimi/Workspaces/Mnemosyne/vault` | Markdown vault directory |
 | `EMBEDDING_MODEL` | `all-MiniLM-L6-v2` | Sentence-transformers model |
 | `OLLAMA_URL` | `http://localhost:11434` | Ollama server for embeddings |
 
@@ -103,9 +97,9 @@ pip install -e ".[dev]"
 
 | File | Purpose |
 |------|---------|
-| `palimpsest/` | Python package (import this) |
-| `~/Palimpsest/vault/` | Your notes (source of truth) |
-| `~/.palimpsest/palimpsest.db` | SQLite database (auto-created) |
+| `mnemosyne/` | Python package (import this) |
+| `~/Mnemosyne/vault/` | Your notes (source of truth) |
+| `~/.mnemosyne/mnemosyne.db` | SQLite database (auto-created) |
 
 ## Best Practices
 
@@ -118,13 +112,45 @@ pip install -e ".[dev]"
 ## Full Platform
 
 This is the **Kimi skill** — the minimal installable version. For the full platform with:
-- NEAR blockchain consent NFTs
-- Cloudflare Workers MCP server
-- 20+ platform connectors (Gmail, GitHub, Twitter, etc.)
-- Next.js frontend
-- x402 USDC micropayments
+- FastAPI REST API
+- Next.js frontend dashboard
+- Neo4j graph backend
+- 20+ platform connectors (Gmail, GitHub, Slack, etc.)
+- Stripe billing integration
+- Docker Compose deployment
+- Team RBAC and multi-tenancy
 
-See: **https://github.com/M4F-S/palimpsest** (platform repo)
+See: **https://github.com/M4F-S/mnemosyne** (platform repo)
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│         Kimi Desktop / Claude Code           │
+│              (MCP Client)                    │
+└──────────────────┬──────────────────────────┘
+                   │ stdio MCP
+┌──────────────────▼──────────────────────────┐
+│        kimi-mnemosyne-skill                 │
+│  ┌─────────────┐  ┌─────────────────────┐  │
+│  │  MCP Server │  │  Memory Operations  │  │
+│  │  (4 tools)  │  │  (remember/recall)  │  │
+│  └─────────────┘  └─────────────────────┘  │
+│  ┌─────────────┐  ┌─────────────────────┐  │
+│  │   SQLite    │  │   PostgreSQL        │  │
+│  │  (fallback) │  │  (pgvector)         │  │
+│  └─────────────┘  └─────────────────────┘  │
+└─────────────────────────────────────────────┘
+         │
+         ▼ (optional: full platform)
+┌─────────────────────────────────────────────┐
+│           mnemosyne (platform)              │
+│  ┌─────────┐ ┌─────────┐ ┌───────────────┐ │
+│  │ FastAPI │ │ Next.js │ │   Neo4j       │ │
+│  │  REST   │ │  Dashboard│ │  (graph)     │ │
+│  └─────────┘ └─────────┘ └───────────────┘ │
+└─────────────────────────────────────────────┘
+```
 
 ## License
 
